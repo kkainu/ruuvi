@@ -1,0 +1,38 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+h1 {
+  font-size: 48px;
+}
+
+h3 {
+  text-transform: uppercase;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+li {
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+.minor-metric {
+  text-align: left;
+  max-width: 200px;
+  margin: 0 auto;
+}
+
+.minor-metric label {
+  color: grey;
+}
+
+.minor-metric .value {
+  float: right;
+}
