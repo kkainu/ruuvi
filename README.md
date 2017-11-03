@@ -5,6 +5,12 @@ A simple node application, which logs Ruuvitag data to InfluxDB and visualized b
 Can be installed on a Raspberry Pi 3
 
 ## Prerequisites
+
+* Install Node
+```
+curl -sL https://deb.nodesource.com/setup_8.x | bash -
+```
+
 * BLE (Bluetooth low energy) and run without root
 ```
 sudo apt-get install bluetooth bluez libbluetooth-dev libudev-dev
