@@ -6,12 +6,6 @@ const influx = new Influx.InfluxDB({
   database: 'ruuvi_db'
 })
 
-const dbPromise = influx.getDatabaseNames().then(names => {
-  if (!names.includes('ruuvi_db')) {
-    return influx.createDatabase('ruuvi_db');
-  }
-})
-
 const record = tag => {
   return influx.writePoints([
     {
@@ -32,10 +26,9 @@ const record = tag => {
         battery: tag.battery
       }
     }
-  ]).then(() => console.log('wrote' + JSON.stringify(tag) + ' to influxdb'))
+  ]).then(() => console.log(JSON.stringify(tag)))
 }
 
 module.exports = {
-  connection: b.fromPromise(dbPromise),
   record: tag => b.fromPromise(record(tag))
 }
