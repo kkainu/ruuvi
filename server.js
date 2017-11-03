@@ -16,12 +16,12 @@ app.use(express.static(path.join(__dirname + '/public')))
 router.get('/ruuvi', (req, res) => res.json(Array.from(tags.values()).sort(alphabeticSort)))
 
 const tagsById = b.fromEvent(ruuvi, 'found')
-	.flatMap(t => b.fromEvent(t, 'updated').map(tag => Object.assign({
-		id: t.id,
-		location: ruuvit[t.id],
-		accelerationTotal: Math.round(Math.sqrt(Math.pow(tag.accelerationX,2) + Math.pow(tag.accelerationY,2) + Math.pow(tag.accelerationZ,2)))
-	}, tag)))
-	.groupBy(tag => tag.id)
+  .flatMap(t => b.fromEvent(t, 'updated').map(tag => Object.assign({
+    id: t.id,
+    location: ruuvit[t.id],
+    accelerationTotal: Math.round(Math.sqrt(Math.pow(tag.accelerationX,2) + Math.pow(tag.accelerationY,2) + Math.pow(tag.accelerationZ,2)))
+  }, tag)))
+  .groupBy(tag => tag.id)
 
 tagsById.onError(e => console.log(e))
 
@@ -33,11 +33,11 @@ const writeToDb = tagsById.flatMap(throttleImmediately(60000)).flatMap(tag => db
 writeToDb.onError(e => console.log(e))
 
 app.listen(3333, () => {
-	console.log("Ruuvi-server listening on port 3333")
+  console.log("Ruuvi-server listening on port 3333")
 })
 
 const alphabeticSort = (n1, n2) => {
-	if (n1 < n2) { return -1 }
-	if (n1 > n2) { return 1 }
-	return 0
+  if (n1 < n2) { return -1 }
+  if (n1 > n2) { return 1 }
+  return 0
 }
