@@ -28,10 +28,11 @@ const record = tag => {
         accelerationX: tag.accelerationX,
         accelerationY: tag.accelerationY,
         accelerationZ: tag.accelerationZ,
+        accelerationTotal: tag.accelerationTotal,
         battery: tag.battery
       }
     }
-  ])
+  ]).then(() => console.log('wrote' + JSON.stringify(tag) + ' to influxdb'))
 }
 
 module.exports = {
