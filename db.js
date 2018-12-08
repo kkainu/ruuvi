@@ -30,9 +30,11 @@ const record = tag => {
   ]).then(() => console.log(JSON.stringify(tag)))
 }
 
-const temps = duration => influx.query(`
-  SELECT mean("temperature") from ruuvi_tags where time> now() - ${escape.stringLit(duration)} GROUP BY time(1m), location
-`)
+const temps = duration => {
+  const query = `SELECT mean("temperature") from ruuvi_tags where time> now() - ${escape.stringLit(duration)} GROUP BY time(1m), location`
+  console.log(query)
+  return influx.query(query)
+}
 
 module.exports = {
   record: tag => b.fromPromise(record(tag)),
