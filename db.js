@@ -29,6 +29,11 @@ const record = tag => {
   ]).then(() => console.log(JSON.stringify(tag)))
 }
 
+const tempLast24h = () => influx.query(`
+  SELECT mean("temperature") from ruuvi_tags where time> now() - 24h GROUP BY time(1m), location
+`)
+
 module.exports = {
-  record: tag => b.fromPromise(record(tag))
+  record: tag => b.fromPromise(record(tag)),
+  tempLast24h: () => b.fromPromise(tempLast24h())
 }
