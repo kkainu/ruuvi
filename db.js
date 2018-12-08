@@ -1,5 +1,6 @@
 const Influx = require('influx')
 const b = require('baconjs')
+const escape = Influx.escape
 
 const influx = new Influx.InfluxDB({
   host: 'localhost',
@@ -29,11 +30,11 @@ const record = tag => {
   ]).then(() => console.log(JSON.stringify(tag)))
 }
 
-const tempLast24h = () => influx.query(`
-  SELECT mean("temperature") from ruuvi_tags where time> now() - 24h GROUP BY time(1m), location
+const temps = duration => influx.query(`
+  SELECT mean("temperature") from ruuvi_tags where time> now() - ${escape(duration)} GROUP BY time(1m), location
 `)
 
 module.exports = {
   record: tag => b.fromPromise(record(tag)),
-  tempLast24h: () => b.fromPromise(tempLast24h())
+  temps: duration => b.fromPromise(temps(duration))
 }

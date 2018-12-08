@@ -14,7 +14,7 @@ app.use('/api', router)
 app.use(express.static(path.join(__dirname + '/public')))
 
 router.get('/ruuvi', (req, res) => res.json(Array.from(tags.values()).sort(alphabeticSort)))
-router.get('/ruuvi/temp/24h', (req, res) => db.tempLast24h().onValue(temps => res.json(temps)))
+router.get('/ruuvi/temps/:duration', (req, res) => db.temps(req.params.duration).onValue(temps => res.json(temps)))
 
 const tagsById = b.fromEvent(ruuvi, 'found')
   .flatMap(t => b.fromEvent(t, 'updated').map(tag => Object.assign({
