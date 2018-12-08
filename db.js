@@ -31,7 +31,7 @@ const record = tag => {
 }
 
 const temps = duration => influx.query(`
-  SELECT mean("temperature") from ruuvi_tags where time> now() - ${escape(duration)} GROUP BY time(1m), location
+  SELECT mean("temperature") from ruuvi_tags where time> now() - ${escape.stringLit(duration)} GROUP BY time(1m), location
 `)
 
 module.exports = {
