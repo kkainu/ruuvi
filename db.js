@@ -1,6 +1,5 @@
 const Influx = require('influx')
 const b = require('baconjs')
-const escape = Influx.escape
 
 const influx = new Influx.InfluxDB({
   host: 'localhost',
@@ -31,8 +30,7 @@ const record = tag => {
 }
 
 const temps = duration => {
-  const query = `SELECT mean("temperature") from ruuvi_tags where time> now() - ${escape.stringLit(duration)} GROUP BY time(1m), location`
-  console.log(query)
+  const query = `SELECT mean("temperature") from ruuvi_tags where time> now() - ${duration} GROUP BY time(1m), location`
   return influx.query(query)
 }
 
