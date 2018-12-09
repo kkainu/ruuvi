@@ -29,12 +29,12 @@ const record = tag => {
   ]).then(() => console.log(JSON.stringify(tag)))
 }
 
-const temps = duration => {
-  const query = `SELECT mean("temperature") from ruuvi_tags where time> now() - ${duration} GROUP BY time(1m), location`
+const measurements = (measurement, duration) => {
+  const query = `SELECT mean("${measurement}") from ruuvi_tags where time> now() - ${duration} GROUP BY time(1m), location`
   return influx.query(query)
 }
 
 module.exports = {
   record: tag => b.fromPromise(record(tag)),
-  temps: duration => b.fromPromise(temps(duration))
+  measurements: (measurement, duration) => b.fromPromise(measurements(measurement, duration))
 }
