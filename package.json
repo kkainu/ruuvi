@@ -9,10 +9,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "baconjs": "^0.7.95",
-    "express": "^4.16.2",
+    "baconjs": "^2.0.9",
+    "express": "^4.16.4",
     "influx": "^5.0.7",
-    "node-ruuvitag": "^3.2.0",
-    "object-sizeof": "^1.2.0"
+    "node-ruuvitag": "^4.1.0",
+    "object-sizeof": "^1.3"
   }
 }
